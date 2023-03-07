@@ -21,7 +21,7 @@ namespace ParanaBanco.Application.Services
 
         public async Task<int> Add(UserDTO userDTO)
         {
-            var user = await _userRepository.GetByEmail(userDTO.Email);
+            var user = await _userRepository.GetByEmail(userDTO.Email.ToLowerInvariant());
 
             if (user != null)
                 throw new EmailAlreadyRegisteredException();
@@ -35,11 +35,11 @@ namespace ParanaBanco.Application.Services
             if (user == null)
                 throw new UserNotFoundException();
 
-            var userByEmail = await _userRepository.GetByEmail(userDTO.Email);
+            var userByEmail = await _userRepository.GetByEmail(userDTO.Email.ToLowerInvariant());
             if (userByEmail != null)
                 throw new EmailAlreadyRegisteredException();
 
-            if (userDTO.FullName == user.FullName && user.Email.Address == userDTO.Email)
+            if (userDTO.FullName == user.FullName && user.Email.Address == userDTO.Email.ToLowerInvariant())
                 return;
 
             user.ModifyUser(userDTO.FullName, new Email(userDTO.Email));
