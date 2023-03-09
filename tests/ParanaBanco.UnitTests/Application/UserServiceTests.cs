@@ -356,7 +356,7 @@ namespace ParanaBanco.UnitTests.Application
             var userDTO = new UserDTO()
             {
                 Id = 1,
-                FullName = "Unit Test Update",
+                FullName = "Unit Test",
                 Email = "test@gmail.com"
             };
 
