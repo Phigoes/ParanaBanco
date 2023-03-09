@@ -36,7 +36,7 @@ namespace ParanaBanco.Application.Services
                 throw new UserNotFoundException();
 
             var userByEmail = await _userRepository.GetByEmail(userDTO.Email.ToLowerInvariant());
-            if (userByEmail != null)
+            if (userByEmail != null && userDTO.FullName == userByEmail.FullName)
                 throw new EmailAlreadyRegisteredException();
 
             if (userDTO.FullName == user.FullName && user.Email.Address == userDTO.Email.ToLowerInvariant())
